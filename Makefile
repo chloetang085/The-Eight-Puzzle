@@ -4,7 +4,7 @@ CXXFLAGS = -I header -std=c++11
 
 # Define target executable and source files
 TARGET = search
-SRC = src/main.cpp src/Node.cpp
+SRC = src/main.cpp src/Node.cpp src/problem.cpp src/PuzzleSolver.cpp
 
 # Rule to build the target executable
 $(TARGET): $(SRC) | build
