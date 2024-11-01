@@ -7,14 +7,20 @@ Node::Node(const vector<vector<int>>& game_state, int cost_path, int heuristicCo
     : state(game_state), path_cost(cost_path), heuristic(heuristicCost), parent(p), blank_pos(bp), action(action_chosen) {}
 
 // Overloads the greater-than operator for min-heap priority queue ordering based on f = g + h.
-bool Node::operator>(const Node& other) const {
-    return (path_cost + heuristic) > (other.path_cost + other.heuristic);
-}
+// bool Node::operator>(const Node& other) const {
+//     return (path_cost + heuristic) > (other.path_cost + other.heuristic);
+// }
 
 // Checks if the node's state matches the goal state.
 bool Node::is_goal(const vector<vector<int>>& goal) const {
     return state == goal;
 }
+
+// Getter for the state of the node.
+const vector<vector<int>>& Node::get_state() const {
+    return state;
+}
+
 
 // Helper function to find and return the coordinates of the blank (zero) tile in the puzzle.
 pair<int, int> Node::find_blank() const {
