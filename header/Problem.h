@@ -1,28 +1,43 @@
-#ifndef PROBLEM_H
-#define PROBLEM_H
+#pragma once
 
 #include <vector>
 #include <utility>
+#include <string>
+#include "node.h"
 using namespace std;
 
-
-//represents the eight puzzle problem and all the initial/goal states and moves
+// Represents the eight-puzzle problem, including initial and goal states, available moves, and search methods.
 class Problem {
 public:
-    vector<vector<int>> initial_state; //vector to hold teh starting states 
-    vector<vector<int>> goal_state;    //vector to stre the goal state
-    // objective is to transition initial state to goal state
-    vector<pair<int, int>> operators; // list of moves for the blank tile
+    // Constructor to initialize the problem with a specified initial and goal state.
+    Problem(const vector<vector<int>>& initial, const vector<vector<int>>& goal);
 
-    Problem(vector<vector<int>> initial, vector<vector<int>> goal);
-        // : initial_state(initial), goal_state(goal) { //initializes initial_state and goal_state with provided arguments
-        // define the possible moves (up, down, left, right)
-        //{0,1} move right
-        //{1,0} move down
-        //{0,-1} move left
-        //{-1,0} move up
-        // operators = {{0, 1}, {1, 0}, {0, -1}, {-1, 0}};
+    // Getters for the initial and goal states.
+    const vector<vector<int>>& get_initial_state() const;
+    const vector<vector<int>>& get_goal_state() const;
+
+    // Heuristic function that returns the number of misplaced tiles compared to the goal state.
+    int misplaced_tile_heuristic(const vector<vector<int>>& state) const;
+
+    // Heuristic function that calculates the Euclidean distance heuristic for the given state.
+    int euclidean_istance_heuristic(const vector<vector<int>>& state) const;
+
+    // Solves the problem using Uniform Cost Search (UCS).
+    Node* uniform_cost_search();
+
+    // Solves the problem using A* search with the Misplaced Tile heuristic.
+    Node* misplaced_tile_A();
+
+    // Solves the problem using A* search with the Euclidean Distance heuristic.
+    Node* euclidean_distance_A();
+
+private:
+    vector<vector<int>> initial_state;  // 2D vector representing the starting state of the puzzle.
+    vector<vector<int>> goal_state;     // 2D vector representing the goal state of the puzzle.
     
-};
+    // Generic A* search function that accepts a heuristic function pointer.
+    Node* a_star_search(int (Problem::*heuristic)(const vector<vector<int>>& state) const);
 
-#endif
+    // Helper function to convert a puzzle state to a unique string for hashing.
+    string state_to_string(const vector<vector<int>>& state) const;
+};
