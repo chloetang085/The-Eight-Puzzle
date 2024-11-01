@@ -27,7 +27,7 @@ public:
     int get_total_cost() const;
 
     // Method to generate child nodes (possible moves).
-    vector<Node*> expand(const vector<string>& actions);
+    vector<Node*> add_child(const vector<string>& actions);
 
 private:
     vector<vector<int>> state;       // Represents the current puzzle state as a 2D vector.
