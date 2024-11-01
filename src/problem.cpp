@@ -80,16 +80,16 @@ Node* Problem::euclidean_distance_A() {
 
 // Generic A* search function that uses the specified heuristic function.
 Node* Problem::a_star_search(int (Problem::*heuristic)(const vector<vector<int>>& state) const) {
-    priority_queue<Node*, vector<Node*>, NodeComparator> unexplored;
+    priority_queue<Node*, vector<Node*>, NodeComparator> frontier;
     unordered_set<string> explored;
 
     // Initialize the root node with path cost = 0 and heuristic cost calculated from the chosen heuristic
     Node* initial_node = new Node(initial_state, 0, (this->*heuristic)(initial_state), nullptr, find_blank(), "");
-    unexplored.push(initial_node);
+    frontier.push(initial_node);
 
-    while (!unexplored.empty()) {
-        Node* current = unexplored.top();
-        unexplored.pop();
+    while (!frontier.empty()) {
+        Node* current = frontier.top();
+        frontier.pop();
 
         // Check if the current node is the goal
         if (current->is_goal(goal_state)) {
@@ -107,7 +107,7 @@ Node* Problem::a_star_search(int (Problem::*heuristic)(const vector<vector<int>>
             // Only add child if it hasn’t been explored
             if (explored.find(child_state_str) == explored.end()) {
                 child->heuristic = (this->*heuristic)(child->get_state());
-                unexplored.push(child);
+                frontier.push(child);
             }
         }
     }
