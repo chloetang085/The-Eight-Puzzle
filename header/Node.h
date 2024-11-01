@@ -26,10 +26,15 @@ public:
     // Getter for the total cost (path cost + heuristic) of reaching this node.
     int get_total_cost() const;
 
+    // Getter for the state of the node.
+    const vector<vector<int>>& get_state() const;
+
+
+
     // Method to generate child nodes (possible moves).
     vector<Node*> add_child(const vector<string>& actions);
 
-private:
+// private:
     vector<vector<int>> state;       // Represents the current puzzle state as a 2D vector.
     int path_cost;                    // Cost to reach this node from the start (g cost).
     int heuristic;                   // Heuristic cost (estimated cost to goal, h cost).

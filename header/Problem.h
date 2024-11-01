@@ -20,7 +20,7 @@ public:
     int misplaced_tile_heuristic(const vector<vector<int>>& state) const;
 
     // Heuristic function that calculates the Euclidean distance heuristic for the given state.
-    int euclidean_istance_heuristic(const vector<vector<int>>& state) const;
+    int euclidean_distance_heuristic(const vector<vector<int>>& state) const;
 
     // Solves the problem using Uniform Cost Search (UCS).
     Node* uniform_cost_search();
@@ -40,4 +40,7 @@ private:
 
     // Helper function to convert a puzzle state to a unique string for hashing.
     string state_to_string(const vector<vector<int>>& state) const;
+
+    // Helper function to find the position of the blank (zero) tile.
+    pair<int, int> find_blank() const;
 };
