@@ -1,23 +1,43 @@
-#ifndef NODE_H
-#define NODE_H
+#pragma once
 
 #include <vector>
 #include <utility>
+#include <string>
 using namespace std;
 
+// Node class represents a single state in the puzzle search space.
 class Node {
 public:
-    vector<vector<int>> state;  // represents current states as vectors
-    int g;                      // cost to reach this node
-    int h;                      // heuristic value
-    int f;                      // total cost (g + h)
-    Node* parent;               // points to previous node, traces through parent pointers to reconstruct a solution path
-    pair<int, int> blank_pos;   // stores current position
+    // Constructor to initialize the node with its state, cost, depth, parent, blank position, and action.
+    Node(const vector<vector<int>>& game_state, int cost_path, int depth, Node* p, const pair<int, int>& bp, const string& action_chosen);
 
-    Node(vector<vector<int>> s, int g_cost, int h_cost, Node* p, pair<int, int> bp);
-
-    // define ordering for priority queue (min-heap based on f value)
+    // Overloads the greater-than operator to compare nodes based on f = g + h for priority queue ordering.
     bool operator>(const Node& other) const;
-};
 
-#endif 
+    // Checks if the current state matches the goal state.
+    bool is_goal(const vector<vector<int>>& goal) const;
+
+    // Getter for the path cost of reaching this node.
+    int get_path_cost() const;
+
+    // Getter for the heuristic cost.
+    int get_heuristic() const;
+
+    // Getter for the total cost (path cost + heuristic) of reaching this node.
+    int get_total_cost() const;
+
+    // Method to generate child nodes (possible moves).
+    vector<Node*> expand(const vector<string>& actions);
+
+private:
+    vector<vector<int>> state;       // Represents the current puzzle state as a 2D vector.
+    int path_cost;                    // Cost to reach this node from the start (g cost).
+    int heuristic;                   // Heuristic cost (estimated cost to goal, h cost).
+    int depth;                       // Depth of this node in the search tree.
+    string action;                   // Action taken to reach this state from the parent.
+    Node* parent;                    // Pointer to the parent node (used for reconstructing the path).
+    pair<int, int> blank_pos;         // Position of the blank (zero) tile.
+
+    // Helper function to find the position of the blank (zero) tile.
+    pair<int, int> find_blank() const;
+};
