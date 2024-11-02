@@ -46,7 +46,7 @@ void display_solution(Node* goal_node) {
 
 int main() {
     // Print welcome message and get puzzle choice
-    cout << "Welcome to the puzzle solver" << endl;
+    cout << "Welcome to 862337526 & 862388494 puzzle solver" << endl;
     cout << "Type 1 to use a default puzzle, or 2 to enter your own puzzle" << endl;
     int choice;
     cin >> choice;

@@ -1,4 +1,4 @@
-build/
 .vscode/
-#executable
-search 
+build
+testfile
+

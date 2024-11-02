@@ -17,10 +17,10 @@ public:
     const vector<vector<int>>& get_goal_state() const;
 
     // Heuristic function that returns the number of misplaced tiles compared to the goal state.
-    int misplaced_tile_heuristic(const vector<vector<int>>& state) const;
+    double misplaced_tile_heuristic(const vector<vector<int>>& state) const;
 
     // Heuristic function that calculates the Euclidean distance heuristic for the given state.
-    int euclidean_distance_heuristic(const vector<vector<int>>& state) const;
+    double euclidean_distance_heuristic(const vector<vector<int>>& state) const;
 
     // Solves the problem using Uniform Cost Search (UCS).
     Node* uniform_cost_search();
@@ -38,7 +38,7 @@ private:
     vector<vector<int>> goal_state;     // 2D vector representing the goal state of the puzzle.
     
     // Generic A* search function that accepts a heuristic function pointer.
-    Node* a_star_search(int (Problem::*heuristic)(const vector<vector<int>>& state) const);
+    Node* a_star_search(double (Problem::*heuristic)(const vector<vector<int>>& state) const);
 
     // Helper function to convert a puzzle state to a unique string for hashing.
     string state_to_string(const vector<vector<int>>& state) const;
